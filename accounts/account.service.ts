@@ -44,7 +44,7 @@ async function authenticate({ email, password, ipAddress }: any) {
 }
 
 async function refreshToken({ token, ipAddress }: any) {
-    const refreshtoken = await getRefreshToken(token);
+    const refreshToken = await getRefreshToken(token);
     const account = await refreshToken.getAccount();
 
     const newRefreshToken = generateRefreshToken(account, ipAddress);
@@ -57,7 +57,7 @@ async function refreshToken({ token, ipAddress }: any) {
     const jwtToken = generateJwtToken(account);
 
     return {
-        ...basicDetails(accounts),
+        ...basicDetails(account),
         jwtToken,
         refreshToken: newRefreshToken.token
     };
@@ -99,7 +99,7 @@ async function verifyEmail({ token }: any) {
     await account.save();
 }
 
-async function forgetPassword({ email }: any, origin: any) {
+async function forgotPassword({ email }: any, origin: any) {
     const account = await db.Account.findOne({ where: { email } });
 
     if (!account) return;
