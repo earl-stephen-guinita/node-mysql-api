@@ -7,7 +7,9 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "commonjs",
+    "ignoreDeprecations": "6.0",
+    "module": "Commonjs",
+    "moduleResolution": "node",
     "target": "es2018",
     "types": [],
     // For nodejs:
