@@ -32,7 +32,10 @@ async function authenticate({ email, password, ipAddress }: any) {
     }
 
     const jwtToken = generateJwtToken(account);
+    console.log('jwtToken generated:', jwtToken);
+    
     const refreshToken = generateRefreshToken(account, ipAddress);
+    console.log('refreshToken generated:', refreshToken);
 
     await refreshToken.save();
 
@@ -198,7 +201,12 @@ async function hash(password: any) {
 }
 
 function generateJwtToken(account: any) {
-    return jwt.sign({ sub: account.id, id: account.id }, config.secret, { expiresIn: '15m' });
+    try {
+        return jwt.sign({ sub: account.id, id: account.id }, config.secret, { expiresIn: 900 });
+    } catch(e) {
+        console.error('JWT error:', e);
+        throw e;
+    }
 }
 
 function generateRefreshToken(account: any, ipAddress: any) {
