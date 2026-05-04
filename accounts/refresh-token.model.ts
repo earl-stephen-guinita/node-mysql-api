@@ -11,11 +11,11 @@ export default function model(sequelize: any) {
         replacedByToken: { type: DataTypes.STRING },
         isExpired: {
             type: DataTypes.VIRTUAL,
-            get() { return Date.now() >= this.expires; }
+            get(this: any) { return Date.now() >= this.expires; }
         },
         isActive: {
             type: DataTypes.VIRTUAL,
-            get() { return !this.revoked && !this.isExpired; }
+            get(this: any) { return !this.revoked && !this.isExpired; }
         }
     };
 
